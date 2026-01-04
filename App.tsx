@@ -26,7 +26,6 @@ const App: React.FC = () => {
       if (userData) {
         setUser(userData);
       } else {
-        // Fallback for session persistence if user data is missing
         setUser({ email: currentUserEmail, name: currentUserEmail.split('@')[0] });
       }
     } else {
@@ -45,28 +44,24 @@ const App: React.FC = () => {
     const lowerEmail = email.toLowerCase().trim();
 
     if (isSignUp) {
-      if (users[lowerEmail]) return 'Email already registered.';
+      if (users[lowerEmail]) {
+        return 'Email already exists. Please sign in instead.';
+      }
       
       const newUser = {
         email: lowerEmail,
-        name: name || lowerEmail.split('@')[0],
+        name: name || 'Blessing Ngozi Uzor',
         password,
         phone,
         isNewUser: true,
         createdAt: new Date().toISOString()
       };
 
-      // Sync to Supabase Profiles
-      // We don't 'await' this strictly to block the user if the DB isn't ready,
-      // but we try it to establish the connection.
-      supabaseRequest('profiles', 'POST', {
+      await supabaseRequest('profiles', 'POST', {
         email: lowerEmail,
-        full_name: name,
-        phone_number: phone
-      }).then(res => {
-        if (res && (res as any).error) {
-          console.error("Supabase Profile Sync failed. Ensure tables are created in SQL Editor.");
-        }
+        full_name: name || 'Blessing Ngozi Uzor',
+        phone_number: phone,
+        password_hash: password 
       });
 
       users[lowerEmail] = newUser;
@@ -77,8 +72,12 @@ const App: React.FC = () => {
     }
 
     const existingUser = users[lowerEmail];
-    if (!existingUser || existingUser.password !== password) {
-      return 'Invalid email or password.';
+    if (!existingUser) {
+      return 'No account found with this email. Please sign up.';
+    }
+    
+    if (existingUser.password !== password) {
+      return 'Wrong password. Please try again.';
     }
 
     existingUser.isNewUser = false;
@@ -105,7 +104,7 @@ const App: React.FC = () => {
       <Layout 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
-        userName={user.name || 'User'}
+        userName={user.name || 'Blessing Ngozi Uzor'}
         theme={theme}
         toggleTheme={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
         onLogout={handleLogout}
@@ -113,7 +112,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 py-8 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
           {activeTab === 'dashboard' && (
             <Dashboard 
-              userName={user.name || 'User'} 
+              userName={user.name || 'Blessing'} 
               userEmail={user.email} 
               isNewUser={user.isNewUser} 
               theme={theme} 
@@ -123,7 +122,7 @@ const App: React.FC = () => {
           {activeTab === 'reports' && <Reports userEmail={user.email} />}
           {activeTab === 'settings' && (
             <Settings 
-              userName={user.name || 'User'} 
+              userName={user.name || 'Blessing Ngozi Uzor'} 
               userEmail={user.email} 
               theme={theme} 
               toggleTheme={() => setTheme(t => t === 'light' ? 'dark' : 'light')} 
