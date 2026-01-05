@@ -60,17 +60,16 @@
     
     <script type="module">
       window.addEventListener('error', function(e) {
-        // Catch network or syntax errors in the module loading phase
-        console.error('Boot Error:', e.message);
+        console.error('System Error during boot:', e.message);
         const status = document.getElementById('loader-status');
         if (status) {
-            status.innerText = 'System Error - Check Browser Console';
+            status.innerText = 'System Error - Check Console';
             status.style.color = '#ef4444';
         }
       });
     </script>
 
     <script type="module" src="https://esm.sh/run-tsx"></script>
-    <script type="text/tsx" src="./index.tsx"></script>
+    <script type="text/tsx" src="index.tsx"></script>
 </body>
 </html>
