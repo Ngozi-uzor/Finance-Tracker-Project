@@ -19,13 +19,15 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; margin: 0; padding: 0; }
+        #root { min-height: 100vh; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         .dark ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .dark ::-webkit-scrollbar-thumb { background: #334155; }
     </style>
+    <!-- Use a simplified, non-conflicting import map -->
     <script type="importmap">
 {
   "imports": {
@@ -40,8 +42,17 @@
 </script>
 </head>
 <body class="bg-gray-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
-    <div id="root"></div>
-    <!-- We use relative paths (./) to ensure it works in the GitHub subfolder -->
+    <div id="root">
+        <!-- Temporary loading state in case the JS takes a moment -->
+        <div style="display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; color:#6366f1; font-weight:bold;">
+            LOADING FINA TRACK...
+        </div>
+    </div>
+
+    <!-- 
+      1. Load the run-tsx compiler first 
+      2. Load your index.tsx using a relative path 
+    -->
     <script type="module" src="https://esm.sh/run-tsx"></script>
     <script type="text/tsx" src="./index.tsx"></script>
 </body>
