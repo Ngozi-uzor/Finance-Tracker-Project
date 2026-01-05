@@ -1,0 +1,13 @@
+[build]
+  publish = "."
+  command = ""
+
+# This tells Netlify that this is a simple static site, not a Jekyll site
+[build.environment]
+  JEKYLL_ENV = "production"
+
+# This ensures that if you refresh the page on a sub-route, it won't 404
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
