@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { Layout } from './components/Layout';
-import { Dashboard } from './components/Dashboard';
-import { Transactions } from './components/Transactions';
-import { Reports } from './components/Reports';
-import { Settings } from './components/Settings';
-import { Auth } from './components/Auth';
-import { supabaseRequest } from './lib/supabase';
+import { Layout } from './components/Layout.tsx';
+import { Dashboard } from './components/Dashboard.tsx';
+import { Transactions } from './components/Transactions.tsx';
+import { Reports } from './components/Reports.tsx';
+import { Settings } from './components/Settings.tsx';
+import { Auth } from './components/Auth.tsx';
+import { supabaseRequest } from './lib/supabase.ts';
 
 const App: React.FC = () => {
   const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(() => {

@@ -1,5 +1,7 @@
 {
   "name": "FINA Track - Personal Finance Dashboard",
   "description": "Where Finance Meets Clarity. A comprehensive personal finance application featuring detailed analytics, budget tracking, and financial goal management.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "camera"
+  ]
 }
