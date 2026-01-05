@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FINA Track - Where Finance Meets Clarity.">
+    <meta name="description" content="FINA Track - Personal Finance Dashboard">
     <title>FINA Track | Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -21,6 +21,17 @@
         body { margin: 0; padding: 0; background: #f8fafc; }
         .dark body { background: #0f172a; }
         #root { min-height: 100vh; }
+        .boot-loader {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: #6366f1;
+            background: #f8fafc;
+        }
+        .dark .boot-loader { background: #0f172a; }
     </style>
     <script type="importmap">
 {
@@ -37,18 +48,23 @@
 </head>
 <body class="dark:bg-slate-900 transition-colors duration-300">
     <div id="root">
-        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; color:#6366f1;">
-            <div style="font-weight:900; font-size:24px; margin-bottom:10px; letter-spacing: 2px;">FINA TRACK</div>
-            <div id="loader-status" style="font-size:12px; color:#94a3b8; font-weight:bold; text-transform:uppercase;">Booting System...</div>
+        <div class="boot-loader">
+            <div style="font-weight:900; font-size:28px; margin-bottom:12px; letter-spacing: -1px;">
+                FINA<span style="color: #4f46e5;">TRACK</span>
+            </div>
+            <div id="loader-status" style="font-size:10px; color:#94a3b8; font-weight:900; text-transform:uppercase; letter-spacing: 2px;">
+                Initialising Dashboard...
+            </div>
         </div>
     </div>
     
     <script type="module">
       window.addEventListener('error', function(e) {
-        console.error('FINA Track Boot Error:', e.message);
+        // Catch network or syntax errors in the module loading phase
+        console.error('Boot Error:', e.message);
         const status = document.getElementById('loader-status');
         if (status) {
-            status.innerText = 'Initialization Error - Check Console';
+            status.innerText = 'System Error - Check Browser Console';
             status.style.color = '#ef4444';
         }
       });
