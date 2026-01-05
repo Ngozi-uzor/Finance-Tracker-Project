@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FINA Track - Where Finance Meets Clarity. Track transactions, manage budgets, and plan your future.">
-    <title>FINA Track | Where Finance Meets Clarity</title>
+    <meta name="description" content="FINA Track - Where Finance Meets Clarity.">
+    <title>FINA Track | Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -12,20 +12,15 @@
         theme: {
           extend: {
             fontFamily: { sans: ['Inter', 'sans-serif'] },
-            borderRadius: { '3xl': '1.5rem', '4xl': '2rem' }
           },
         },
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; margin: 0; padding: 0; }
+        body { margin: 0; padding: 0; background: #f8fafc; }
+        .dark body { background: #0f172a; }
         #root { min-height: 100vh; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        .dark ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark ::-webkit-scrollbar-thumb { background: #334155; }
     </style>
     <script type="importmap">
 {
@@ -40,13 +35,25 @@
 }
 </script>
 </head>
-<body class="bg-gray-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
+<body class="dark:bg-slate-900 transition-colors duration-300">
     <div id="root">
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; color:#6366f1;">
-            <div style="font-weight:bold; margin-bottom:10px; letter-spacing: 2px;">FINA TRACK</div>
-            <div style="font-size:12px; color:#94a3b8;">Loading modules...</div>
+            <div style="font-weight:900; font-size:24px; margin-bottom:10px; letter-spacing: 2px;">FINA TRACK</div>
+            <div id="loader-status" style="font-size:12px; color:#94a3b8; font-weight:bold; text-transform:uppercase;">Booting System...</div>
         </div>
     </div>
+    
+    <script type="module">
+      window.addEventListener('error', function(e) {
+        console.error('FINA Track Boot Error:', e.message);
+        const status = document.getElementById('loader-status');
+        if (status) {
+            status.innerText = 'Initialization Error - Check Console';
+            status.style.color = '#ef4444';
+        }
+      });
+    </script>
+
     <script type="module" src="https://esm.sh/run-tsx"></script>
     <script type="text/tsx" src="./index.tsx"></script>
 </body>
