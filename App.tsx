@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Layout } from './components/Layout.tsx';
 import { Dashboard } from './components/Dashboard.tsx';
@@ -6,7 +5,6 @@ import { Transactions } from './components/Transactions.tsx';
 import { Reports } from './components/Reports.tsx';
 import { Settings } from './components/Settings.tsx';
 import { Auth } from './components/Auth.tsx';
-import { supabaseRequest } from './lib/supabase.ts';
 
 const App: React.FC = () => {
   const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(() => {
@@ -50,19 +48,12 @@ const App: React.FC = () => {
       
       const newUser = {
         email: lowerEmail,
-        name: name || 'Blessing Ngozi Uzor',
+        name: name || 'User',
         password,
         phone,
         isNewUser: true,
         createdAt: new Date().toISOString()
       };
-
-      await supabaseRequest('profiles', 'POST', {
-        email: lowerEmail,
-        full_name: name || 'Blessing Ngozi Uzor',
-        phone_number: phone,
-        password_hash: password 
-      });
 
       users[lowerEmail] = newUser;
       localStorage.setItem('finatrack_users', JSON.stringify(users));
@@ -104,15 +95,15 @@ const App: React.FC = () => {
       <Layout 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
-        userName={user.name || 'Blessing Ngozi Uzor'}
+        userName={user.name || 'User'}
         theme={theme}
         toggleTheme={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
         onLogout={handleLogout}
       >
-        <div className="max-w-7xl mx-auto px-4 py-8 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="max-w-7xl mx-auto px-4 py-8 w-full">
           {activeTab === 'dashboard' && (
             <Dashboard 
-              userName={user.name || 'Blessing'} 
+              userName={user.name || 'User'} 
               userEmail={user.email} 
               isNewUser={user.isNewUser} 
               theme={theme} 
@@ -122,7 +113,7 @@ const App: React.FC = () => {
           {activeTab === 'reports' && <Reports userEmail={user.email} />}
           {activeTab === 'settings' && (
             <Settings 
-              userName={user.name || 'Blessing Ngozi Uzor'} 
+              userName={user.name || 'User'} 
               userEmail={user.email} 
               theme={theme} 
               toggleTheme={() => setTheme(t => t === 'light' ? 'dark' : 'light')} 
@@ -131,16 +122,6 @@ const App: React.FC = () => {
           )}
         </div>
       </Layout>
-      <footer className="bg-white dark:bg-slate-800 border-t border-gray-100 dark:border-slate-800 py-10 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 text-center space-y-2">
-          <div className="text-slate-900 dark:text-white text-[11px] font-black uppercase tracking-[0.2em]">
-            © 2025 FINATrack - Take control of your cash
-          </div>
-          <div className="text-gray-400 text-xs font-medium">
-            Created by Felicite, Idris, Ngozi & Adam
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

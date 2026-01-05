@@ -27,7 +27,6 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .dark ::-webkit-scrollbar-thumb { background: #334155; }
     </style>
-    <!-- Use a simplified, non-conflicting import map -->
     <script type="importmap">
 {
   "imports": {
@@ -43,16 +42,11 @@
 </head>
 <body class="bg-gray-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
     <div id="root">
-        <!-- Temporary loading state in case the JS takes a moment -->
-        <div style="display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; color:#6366f1; font-weight:bold;">
-            LOADING FINA TRACK...
+        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; color:#6366f1;">
+            <div style="font-weight:bold; margin-bottom:10px;">FINA TRACK</div>
+            <div style="font-size:12px; color:#94a3b8;">Loading modules...</div>
         </div>
     </div>
-
-    <!-- 
-      1. Load the run-tsx compiler first 
-      2. Load your index.tsx using a relative path 
-    -->
     <script type="module" src="https://esm.sh/run-tsx"></script>
     <script type="text/tsx" src="./index.tsx"></script>
 </body>

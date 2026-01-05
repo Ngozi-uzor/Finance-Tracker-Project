@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <title>FINA Track</title>
     <script type="text/javascript">
-      // This script handles the redirect back to index.html for SPA routing on GH Pages
+      var pathSegmentsToKeep = 1;
       var l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1).join('/') + '/index.html'
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/index.html'
       );
     </script>
   </head>
